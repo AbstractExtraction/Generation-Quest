@@ -1,0 +1,11 @@
+using Unity.VisualScripting;
+using UnityEngine;
+
+public class CloseDoor : MonoBehaviour, IInteractable
+{
+    public GameObject door;
+    public void Interact()
+    {
+        door.transform.position += new Vector3(0, 40, 0);
+    }
+}
