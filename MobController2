@@ -1,0 +1,41 @@
+using UnityEngine;
+
+public class MobController2 : MonoBehaviour
+{
+    public UnityEngine.AI.NavMeshAgent agent;
+    public GameObject player;
+    public GameObject barbarian;
+    public Animator animator;
+    // Update is called once per frame
+    void Update()
+    {
+        RaycastHit hit;
+        Vector3 rayDirection = player.transform.position - transform.position;
+
+        if (Physics.Raycast(transform.position, rayDirection, out hit))
+        {
+
+            if (hit.transform == player.transform)
+            {
+                // enemy can see the player!
+                agent.speed = 7;
+                animator.SetBool("isRunning", true);
+                agent.SetDestination(player.transform.position);
+            }
+            else
+            {
+                // there is something obstructing the view
+                if (agent.destination == barbarian.transform.position)
+                {
+                    agent.speed = 4;
+                    animator.SetBool("isRunning", false);
+                    float x = Random.Range(70f, 120f);
+                    float z = Random.Range(-30f, 70f);
+                    agent.SetDestination(new Vector3(x, 0f, z));
+                }
+            }
+
+        }
+        //agent.SetDestination(player.transform.position);
+    }
+}
