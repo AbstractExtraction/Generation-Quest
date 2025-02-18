@@ -1,0 +1,25 @@
+using UnityEngine;
+
+public class SkeletonWarriorCollision : MonoBehaviour
+{
+    // These positions can be set in the Inspector.
+    // They represent where you want the skeleton and player to reset.
+    public Vector3 skeletonResetPosition;
+    public Vector3 playerResetPosition;
+    public GameObject player;
+    // This function is called when a collision occurs.
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            // Instantiate a copy of the player at its current position and rotation.
+            Instantiate(player, player.transform.position, player.transform.rotation);
+
+            // Reset the player's position.
+            player.transform.position = playerResetPosition;
+
+            // Reset the skeleton warrior's position.
+            transform.position = skeletonResetPosition;
+        }
+    }
+}
